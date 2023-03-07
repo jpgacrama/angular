@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   notificationsCount = 10;
+  updateNotificationsCount(count: number) {
+    this.notificationsCount = count;
+  }
 }
