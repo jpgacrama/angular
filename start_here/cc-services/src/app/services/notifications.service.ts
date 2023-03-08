@@ -4,7 +4,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NotificationsService {
-  private count: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private count: BehaviorSubject<number> = new BehaviorSubject<number>(10);
   count$: Observable<number> = this.count.asObservable();
   constructor() { }
+  setCount(countVal:number) {
+    this.count.next(countVal);
+  }
 }
