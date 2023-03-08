@@ -12,8 +12,7 @@ export class NotificationsManagerComponent implements OnInit {
   notificationsCount$: Observable<number>;
   constructor(private notificationsService: NotificationsService) { }
   ngOnInit(): void {
-  this.notificationsCount$ = this.notificationsService.
-  count$;
+    this.notificationsCount$ = this.notificationsService.count$;
   }
 
   getCountValue(callback) {
