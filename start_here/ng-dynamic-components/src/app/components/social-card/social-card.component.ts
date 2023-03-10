@@ -41,5 +41,8 @@ export class SocialCardComponent implements OnInit, OnChanges {
         component = TwitterCardComponent;
         break;
     }
+    const componentFactory =
+      this.componentFactoryResolver.resolveComponentFactory(component);
+    this.vrf.createComponent(componentFactory);
   }
 }
