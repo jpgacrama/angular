@@ -9,6 +9,8 @@ import {
   OnChanges,
 } from '@angular/core';
 import { SocialCardType } from 'src/app/constants/social-card-type';
+import { FbCardComponent } from '../fb-card/fb-card.component';
+import { TwitterCardComponent } from '../twitter-card/twitter-card.component';
 
 @Component({
   selector: 'app-social-card',
@@ -22,9 +24,22 @@ export class SocialCardComponent implements OnInit, OnChanges {
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {}
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.type.currentValue !== undefined) {
-      console.log(`card type changed to: ${changes.type.currentValue}`);
+      this.loadDynamicComponent(changes.type.currentValue);
+    }
+  }
+
+  loadDynamicComponent(type: SocialCardType) {
+    let component;
+    switch (type) {
+      case SocialCardType.Facebook:
+        component = FbCardComponent;
+        break;
+      case SocialCardType.Twitter:
+        component = TwitterCardComponent;
+        break;
     }
   }
 }
