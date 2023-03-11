@@ -22,6 +22,18 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## To Update
+
+Run the following commands:
+* `npm i -g npm-check-updates`
+* `ncu -u`
+* `npm install`
+
+## To install Angular CLI
+
+Run the following commands:
+* `npm install -g @angular/cli`
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
