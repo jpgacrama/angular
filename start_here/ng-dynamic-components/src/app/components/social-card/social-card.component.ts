@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   Input,
-  ComponentFactoryResolver,
   ViewChild,
   ViewContainerRef,
   SimpleChanges,
@@ -21,7 +20,7 @@ export class SocialCardComponent implements OnInit, OnChanges {
   @Input() type: SocialCardType;
   @ViewChild('vrf', { read: ViewContainerRef }) vrf: ViewContainerRef;
   cardTypes = SocialCardType;
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
@@ -32,7 +31,7 @@ export class SocialCardComponent implements OnInit, OnChanges {
   }
 
   loadDynamicComponent(type: SocialCardType) {
-    let component;
+    let component: any;
     switch (type) {
       case SocialCardType.Facebook:
         component = FbCardComponent;
@@ -41,6 +40,7 @@ export class SocialCardComponent implements OnInit, OnChanges {
         component = TwitterCardComponent;
         break;
     }
+    this.vrf.clear();
     this.vrf.createComponent(component);
   }
 }
