@@ -2,4 +2,4 @@
 .DS_Store
 
 start_here/package-lock.json
-start_here/ng-dynamic-components/.angular
+.angular
