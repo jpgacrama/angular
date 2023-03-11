@@ -4,6 +4,7 @@ import {
   OnChanges,
   SimpleChanges,
   ElementRef,
+  Renderer2,
 } from '@angular/core';
 
 @Directive({
@@ -13,7 +14,8 @@ export class HighlightDirective implements OnChanges {
   @Input() highlightText = '';
   @Input() highlightColor = 'yellow';
   originalHTML = '';
-  constructor(private el: ElementRef) {}
+
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.highlightText.firstChange) {
@@ -23,12 +25,21 @@ export class HighlightDirective implements OnChanges {
     const { currentValue } = changes.highlightText;
     if (currentValue) {
       const regExp = new RegExp(`(${currentValue})`, 'gi');
-      this.el.nativeElement.innerHTML = this.originalHTML.replace(
+      const highlightedHTML = this.originalHTML.replace(
         regExp,
-        `<span style="background-color: ${this.highlightColor}">\$1</span>`
+        `<span style="background-color: ${this.highlightColor}">$1</span>`
+      );
+      this.renderer.setProperty(
+        this.el.nativeElement,
+        'innerHTML',
+        highlightedHTML
       );
     } else {
-      this.el.nativeElement.innerHTML = this.originalHTML;
+      this.renderer.setProperty(
+        this.el.nativeElement,
+        'innerHTML',
+        this.originalHTML
+      );
     }
   }
 }
