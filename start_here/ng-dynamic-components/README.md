@@ -29,6 +29,11 @@ Run the following commands:
 * `ncu -u`
 * `npm install`
 
+## To install Angular CLI
+
+Run the following commands:
+* `npm install -g @angular/cli`
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
