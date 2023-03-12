@@ -1,11 +1,18 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[appIfNot]',
 })
 export class IfNotDirective {
-  constructor() {}
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainerRef: ViewContainerRef
+  ) {}
   @Input() set appIfNot(value: boolean) {
-    console.log(`appIfNot value is ${value}`);
+    if (value === false) {
+      this.viewContainerRef.createEmbeddedView(this.templateRef);
+    } else {
+      this.viewContainerRef.clear();
+    }
   }
 }
