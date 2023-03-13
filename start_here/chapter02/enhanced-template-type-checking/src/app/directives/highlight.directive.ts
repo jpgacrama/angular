@@ -1,4 +1,11 @@
-import { Directive, Input, SimpleChanges, OnChanges, ElementRef } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 
 export enum HighlightColor {
   Yellow = 'yellow',
@@ -13,7 +20,7 @@ export class HighlightDirective implements OnChanges {
   @Input() highlightText = '';
   @Input() highlightColor: HighlightColor = HighlightColor.Yellow;
   originalHTML = '';
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.highlightText.firstChange) {
@@ -22,10 +29,22 @@ export class HighlightDirective implements OnChanges {
     }
     const { currentValue } = changes.highlightText;
     if (currentValue) {
-      const regExp = new RegExp(`(${currentValue})`, 'gi')
-      this.el.nativeElement.innerHTML = this.originalHTML.replace(regExp, `<span style="background-color: ${this.highlightColor}">\$1</span>`)
+      const regExp = new RegExp(`(${currentValue})`, 'gi');
+      const highlightedHTML = this.originalHTML.replace(
+        regExp,
+        `<span style="background-color: ${this.highlightColor}">$1</span>`
+      );
+      this.renderer.setProperty(
+        this.el.nativeElement,
+        'innerHTML',
+        highlightedHTML
+      );
     } else {
-      this.el.nativeElement.innerHTML = this.originalHTML;
+      this.renderer.setProperty(
+        this.el.nativeElement,
+        'innerHTML',
+        this.originalHTML
+      );
     }
   }
 
