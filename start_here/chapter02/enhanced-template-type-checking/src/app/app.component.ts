@@ -8,5 +8,5 @@ import { HighlightColor } from './directives/highlight.directive';
 })
 export class AppComponent {
   searchText = '';
-  hColor: HighlightColor = HighlightColor.LightCoral;
+  hColor: HighlightColor = HighlightColor.LightGreen;
 }
