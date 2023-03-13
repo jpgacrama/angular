@@ -16,7 +16,6 @@
   },
   "angularCompilerOptions": {
     "strictTemplates": true,
-    "strictNullChecks": true,
     "strictNullInputTypes": true
   }
 }
