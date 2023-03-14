@@ -33,6 +33,12 @@
     "strictNullInputTypes": true,
   }
 ```
+
+You can use this to automate the modification of tsconfig.json files:
+`find . -name "tsconfig.json" -exec sh -c 'jq ". + { angularCompilerOptions: { strictTemplates: true, strictNullChecks: true, strictNullInputTypes: true } }" {} > temp && mv temp {}' \;`
+
+But you need to install `jq` first
+
 ## NPM
 - `npm install`
 - `ng serve -o`
