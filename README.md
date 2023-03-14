@@ -3,6 +3,9 @@
 - [Pre-Requisites:](#pre-requisites)
   - [MySQL](#mysql)
   - [Full update of Angular to the latest version](#full-update-of-angular-to-the-latest-version)
+  - [Find and replace Offending code](#find-and-replace-offending-code)
+  - [Remove all package-lock.json files](#remove-all-package-lockjson-files)
+  - [Update all tsconfig.json to contain the following](#update-all-tsconfigjson-to-contain-the-following)
   - [NPM](#npm)
 
 
@@ -16,6 +19,20 @@
 ## Full update of Angular to the latest version
 - `clear; rm package-lock.json; npm i -g npm-check-updates; ncu -u; npm install --force; npm audit fix --force; ng serve -o`
 
+## Find and replace Offending code
+- `find . -type f -name '*.ts' -exec sed -i '' 's/imports: \[RouterModule\.forRoot(routes, { relativeLinkResolution: '\''legacy'\'' })\]/imports: \[RouterModule.forRoot(routes)\]/g' {} +`
+
+## Remove all package-lock.json files
+- `find . -name "package-lock.json" -exec rm -f {} \; 2>/dev/null`
+
+## Update all tsconfig.json to contain the following
+```
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "strictNullChecks": true,
+    "strictNullInputTypes": true,
+  }
+```
 ## NPM
 - `npm install`
 - `ng serve -o`
