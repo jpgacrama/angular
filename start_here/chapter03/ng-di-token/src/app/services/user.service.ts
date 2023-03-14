@@ -27,6 +27,6 @@ export class UserService {
 
   getUser() {
     const user = this.users[Math.floor(Math.random() * this.users.length)];
-    return new Greeter(user);
+    return new this.greeter(user);
   }
 }
