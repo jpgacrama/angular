@@ -10,11 +10,11 @@ export class VersionControlComponent implements OnInit {
   versionForm = new FormGroup({
     version: new FormControl('', [Validators.pattern('([0-9]+)\.([0-9]+)\.([0-9]+)')])
   })
-  versionName = '0.0.0';
+  versionName : string = '0.0.0';
   constructor() { }
 
   ngOnInit(): void {
-    this.versionForm.get('version').setValue(this.versionName);
+    this.versionForm.get('version')?.setValue(this.versionName);
   }
 
   formSubmit() {
@@ -22,7 +22,7 @@ export class VersionControlComponent implements OnInit {
       alert('Invalid version value. Please use symantic versioning')
       return;
     }
-    this.versionName = this.versionForm.get('version').value;
+    this.versionName = this.versionForm.get('version')?.value ?? '';
   }
 
 }
