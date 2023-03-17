@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LoggerService } from '../../services/logger.service';
 import { Logger } from '../../interfaces/logger';
+import { Optional } from '@angular/core';
+
 @Component({
   selector: 'app-vc-logs',
   templateUrl: './vc-logs.component.html',
@@ -10,8 +12,12 @@ export class VcLogsComponent implements OnInit {
   @Input() vName;
   logs: string[] = [];
   logger: Logger;
-  constructor(private loggerService: LoggerService) {
-    this.logger = this.loggerService;
+  constructor(@Optional() private loggerService: LoggerService) {
+    if (!this.logger) {
+      this.logger = console
+    } else {
+      this.logger = this.loggerService;
+    }
   }
 
   ngOnInit(): void {
