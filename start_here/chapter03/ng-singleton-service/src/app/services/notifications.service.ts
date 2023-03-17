@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SkipSelf, Optional } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +9,11 @@ export class NotificationsService {
   private count: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   count$: Observable<number> = this.count.asObservable();
-  constructor() { }
+  constructor(@Optional() @SkipSelf() existingService: NotificationsService) {
+    if (existingService) {
+      throw Error('The service has already been provided in the app. Avoid providing it again in child modules');
+    }
+  }
 
   setCount(countVal) {
     this.count.next(countVal);
