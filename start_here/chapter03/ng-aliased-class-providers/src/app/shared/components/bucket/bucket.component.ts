@@ -7,13 +7,14 @@ import { IFruit } from '../../../interfaces/fruit.interface';
 @Component({
   selector: 'app-bucket',
   templateUrl: './bucket.component.html',
-  styleUrls: ['./bucket.component.scss']
+  styleUrls: ['./bucket.component.scss'],
 })
 export class BucketComponent implements OnInit {
   $bucket: Observable<IFruit[]>;
-  selectedFruit: Fruit = '' as null;
+  selectedFruit: Fruit;
   fruits: string[] = Object.values(Fruit);
-  constructor(private bucketService: BucketService) { }
+
+  constructor(private bucketService: BucketService) {}
 
   ngOnInit(): void {
     this.$bucket = this.bucketService.$bucket;
@@ -23,11 +24,10 @@ export class BucketComponent implements OnInit {
   addSelectedFruitToBucket() {
     this.bucketService.addItem({
       id: Date.now(),
-      name: this.selectedFruit
-    })
+      name: this.selectedFruit,
+    });
   }
   deleteFromBucket(fruit: IFruit) {
     this.bucketService.removeItem(fruit);
   }
-
 }
