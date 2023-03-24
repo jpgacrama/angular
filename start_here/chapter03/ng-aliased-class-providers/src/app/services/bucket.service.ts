@@ -4,13 +4,12 @@ import { IFruit } from '../interfaces/fruit.interface';
 import { IBucketService } from '../interfaces/bucket-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BucketService implements IBucketService {
-  bucketSource = new BehaviorSubject([]);
+  private bucketSource = new BehaviorSubject<IFruit[]>([]);
   $bucket: Observable<IFruit[]> = this.bucketSource.asObservable();
-  constructor() {
-  }
+  constructor() {}
 
   loadItems() {
     const bucket = JSON.parse(window.localStorage.getItem('bucket') || '[]');
@@ -24,7 +23,9 @@ export class BucketService implements IBucketService {
   }
 
   removeItem(fruit: IFruit) {
-    const bucket = this.bucketSource.value.filter(item => item.id !== fruit.id);
+    const bucket = this.bucketSource.value.filter(
+      (item) => item.id !== fruit.id
+    );
     this.bucketSource.next([...bucket]);
     window.localStorage.setItem('bucket', JSON.stringify(bucket));
   }
