@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { BucketService } from 'src/app/services/bucket.service';
 import { Fruit } from '../../../constants/fruit';
 import { IFruit } from '../../../interfaces/fruit.interface';
+import { IAppConfig, APP_CONFIG } from 'src/app/constants/app-config';
 
 @Component({
   selector: 'app-bucket',
@@ -13,6 +14,7 @@ export class BucketComponent implements OnInit {
   $bucket: Observable<IFruit[]>;
   selectedFruit: Fruit | null = null;
   fruits: string[] = Object.values(Fruit);
+  @Inject(APP_CONFIG) private config: IAppConfig;
   constructor(private bucketService: BucketService) {}
 
   ngOnInit(): void {
