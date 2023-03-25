@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { UserType } from '../constants/user-type';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  loggedInUserType = null;
+  loggedInUserType: string | null = null;
   constructor() {
-    this.loggedInUserType = window.localStorage.getItem('loggedIn')
+    const loggedIn = window.localStorage.getItem('loggedIn');
+    if (loggedIn !== null) {
+      this.loggedInUserType = loggedIn;
+    }
   }
 
   login(userType: UserType) {
@@ -21,7 +24,9 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return this.loggedInUserType === UserType.Admin || this.loggedInUserType === UserType.Employee;
+    return (
+      this.loggedInUserType === UserType.Admin ||
+      this.loggedInUserType === UserType.Employee
+    );
   }
-
 }

@@ -6,19 +6,18 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     const userType = this.auth.loggedInUserType;
-    this.naviageToUserRoute(userType);
+    this.naviageToUserRoute(userType as UserType);
   }
 
   naviageToUserRoute(userType: UserType) {
-    switch(userType) {
+    switch (userType) {
       case UserType.Admin:
         this.router.navigate(['/admin']);
         break;
@@ -38,5 +37,4 @@ export class LoginComponent implements OnInit {
     this.auth.login(userType);
     this.naviageToUserRoute(userType);
   }
-
 }
