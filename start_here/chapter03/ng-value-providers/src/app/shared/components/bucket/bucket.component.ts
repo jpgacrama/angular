@@ -15,13 +15,16 @@ export class BucketComponent implements OnInit {
   selectedFruit: Fruit | null = null;
   fruits: string[] = Object.values(Fruit);
   canDeleteItems: boolean;
-  @Inject(APP_CONFIG) private config: IAppConfig;
-  constructor(private bucketService: BucketService) {}
+  constructor(
+    private bucketService: BucketService,
+    @Inject(APP_CONFIG) private config: IAppConfig
+  ) {}
 
   ngOnInit(): void {
     this.$bucket = this.bucketService.$bucket;
     this.bucketService.loadItems();
     this.canDeleteItems = this.config.canDeleteItems;
+    console.log('Can Delete Items:', this.canDeleteItems);
   }
 
   addSelectedFruitToBucket() {
