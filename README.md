@@ -5,6 +5,7 @@
   - [Full update of Angular to the latest version](#full-update-of-angular-to-the-latest-version)
   - [Find and replace Offending code](#find-and-replace-offending-code)
   - [Remove all package-lock.json files](#remove-all-package-lockjson-files)
+  - [Remove all node\_modules folders](#remove-all-node_modules-folders)
   - [Update all tsconfig.json to contain the following](#update-all-tsconfigjson-to-contain-the-following)
   - [NPM](#npm)
 
@@ -24,6 +25,9 @@
 
 ## Remove all package-lock.json files
 - `find . -name "package-lock.json" -exec rm -f {} \; 2>/dev/null`
+
+## Remove all node_modules folders
+- `find /path/to/your/directory -name "node_modules" -type d -prune -exec rm -rf {} +`
 
 ## Update all tsconfig.json to contain the following
 ```
