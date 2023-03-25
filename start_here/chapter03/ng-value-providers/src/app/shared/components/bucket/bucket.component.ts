@@ -24,7 +24,6 @@ export class BucketComponent implements OnInit {
     this.$bucket = this.bucketService.$bucket;
     this.bucketService.loadItems();
     this.canDeleteItems = this.config.canDeleteItems;
-    console.log('Can Delete Items:', this.canDeleteItems);
   }
 
   addSelectedFruitToBucket() {
