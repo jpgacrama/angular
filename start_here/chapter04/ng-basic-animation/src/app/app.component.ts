@@ -6,6 +6,7 @@ import {
   style,
   animate,
   transition,
+  group,
 } from '@angular/animations';
 
 @Component({
@@ -28,6 +29,36 @@ import {
           visibility: 'hidden',
         })
       ),
+      transition('btn-inactive-text => btn-active-text', [
+        animate(
+          '0.3s ease',
+          style({
+            width: '80px',
+          })
+        ),
+        animate(
+          '0.3s ease',
+          style({
+            visibility: 'visible',
+          })
+        ),
+      ]),
+      transition('btn-active-text => btn-inactive-text', [
+        group([
+          animate(
+            '0.3s',
+            style({
+              width: '80px',
+            })
+          ),
+          animate(
+            '0.3s',
+            style({
+              visibility: 'hidden',
+            })
+          ),
+        ]),
+      ]),
     ]),
   ],
 })
