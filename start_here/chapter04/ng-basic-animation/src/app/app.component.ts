@@ -19,6 +19,7 @@ import {
         'btn-active-text',
         style({
           width: '80px',
+          opacity: '1',
           visibility: 'visible',
         })
       ),
@@ -26,6 +27,7 @@ import {
         'btn-inactive-text',
         style({
           width: '0px',
+          opacity: '0',
           visibility: 'hidden',
         })
       ),
@@ -40,6 +42,7 @@ import {
           animate(
             '0.3s ease',
             style({
+              opacity: '1',
               visibility: 'visible',
             })
           ),
@@ -56,6 +59,7 @@ import {
           animate(
             '0.3s ease',
             style({
+              opacity: '0',
               visibility: 'hidden',
             })
           ),
