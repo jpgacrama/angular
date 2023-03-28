@@ -46,13 +46,13 @@ import {
       transition('btn-active-text => btn-inactive-text', [
         group([
           animate(
-            '0.3s',
+            '0s',
             style({
               width: '80px',
             })
           ),
           animate(
-            '0.3s',
+            '0s',
             style({
               visibility: 'hidden',
             })
