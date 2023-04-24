@@ -1,18 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { cardAnimation } from '../../animations';
 
 @Component({
   selector: 'app-fb-card',
   templateUrl: './fb-card.component.html',
   styleUrls: ['./fb-card.component.scss'],
-  animations: [cardAnimation]
+  animations: [cardAnimation],
 })
 export class FbCardComponent implements OnInit {
-  cardState;
-  constructor() { }
+  cardState: 'hovered' | 'active' = 'active';
+  constructor() {}
 
-  ngOnInit(): void {
-    this.cardState = 'active'
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.cardState = 'hovered';
   }
 
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.cardState = 'active';
+  }
+
+  ngOnInit(): void {
+    this.cardState = 'active';
+  }
 }

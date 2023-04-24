@@ -7,6 +7,7 @@
   - [Remove all package-lock.json files](#remove-all-package-lockjson-files)
   - [Remove all node\_modules folders](#remove-all-node_modules-folders)
   - [Update all tsconfig.json to contain the following](#update-all-tsconfigjson-to-contain-the-following)
+  - [Install correct typescript version](#install-correct-typescript-version)
   - [NPM](#npm)
 
 
@@ -37,6 +38,9 @@
     "strictNullInputTypes": true,
   }
 ```
+
+## Install correct typescript version
+- `npm install typescript@4.9.5`
 ## NPM
 - `npm install`
 - `ng serve -o`
