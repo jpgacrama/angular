@@ -9,7 +9,7 @@ import { ANIMATIONS } from '../../../constants/animations';
   selector: 'app-bucket',
   templateUrl: './bucket.component.html',
   styleUrls: ['./bucket.component.scss'],
-  animations: [ANIMATIONS.LIST_ITEM_ANIMATION],
+  animations: [ANIMATIONS.LIST_ANIMATION],
 })
 export class BucketComponent implements OnInit {
   $bucket: Observable<IFruit[]>;

@@ -1,27 +1,44 @@
-import { trigger, style, animate, transition } from '@angular/animations';
+import {
+  trigger,
+  style,
+  animate,
+  transition,
+  stagger,
+  query,
+} from '@angular/animations';
 export const ANIMATIONS = {
-  LIST_ITEM_ANIMATION: trigger('listItemAnimation', [
-    transition('void => *', [
-      style({
-        opacity: 0,
-      }),
-      animate(
-        '0.5s ease',
-        style({
-          opacity: 1,
-        })
+  LIST_ANIMATION: trigger('listAnimation', [
+    transition('* <=> *', [
+      query(
+        ':enter',
+        [
+          style({
+            opacity: 0,
+          }),
+          stagger(100, [
+            animate(
+              '0.5s ease',
+              style({
+                opacity: 1,
+              })
+            ),
+          ]),
+        ],
+        { optional: true }
       ),
-    ]),
-    ,
-    transition('* => void', [
-      style({
-        opacity: 1,
-      }),
-      animate(
-        '0.5s ease',
-        style({
-          opacity: 0,
-        })
+      query(
+        ':leave',
+        [
+          stagger(100, [
+            animate(
+              '0.5s ease',
+              style({
+                opacity: 0,
+              })
+            ),
+          ]),
+        ],
+        { optional: true }
       ),
     ]),
   ]),
