@@ -12,19 +12,20 @@ const routes: Routes = [
     data: {
       transitionState: 'HomePage',
     },
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'about',
     data: {
       transitionState: 'AboutPage',
     },
-    loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
+    loadChildren: () =>
+      import('./about/about.module').then((m) => m.AboutModule),
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
