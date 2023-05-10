@@ -22,7 +22,7 @@ export const ROUTE_ANIMATION = trigger('routeAnimation', [
           width: '100%',
         }),
       ],
-      optional
+      { optional: true }
     ),
     query(
       ':enter',
@@ -31,31 +31,33 @@ export const ROUTE_ANIMATION = trigger('routeAnimation', [
           opacity: 0,
         }),
       ],
-      optional
+      { optional: true }
     ),
-    query(
-      ':leave',
-      [
-        animate(
-          '1s ease-in',
-          style({
-            opacity: 0,
-          })
-        ),
-      ],
-      optional
-    ),
-    query(
-      ':enter',
-      [
-        animate(
-          '1s ease-out',
-          style({
-            opacity: 1,
-          })
-        ),
-      ],
-      optional
-    ),
+    group([
+      query(
+        ':leave',
+        [
+          animate(
+            '1s ease-in',
+            style({
+              opacity: 0,
+            })
+          ),
+        ],
+        { optional: true }
+      ),
+      query(
+        ':enter',
+        [
+          animate(
+            '1s ease-out',
+            style({
+              opacity: 1,
+            })
+          ),
+        ],
+        { optional: true }
+      ),
+    ]),
   ]),
 ]);
