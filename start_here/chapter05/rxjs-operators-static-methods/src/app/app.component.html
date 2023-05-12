@@ -310,13 +310,13 @@
     </div>
     <div class="output-stream">
       <h6>Movies</h6>
-      <div class="input-stream__item" *ngFor="let item of outputStreamData">
+      <div class="input-stream__item" *ngFor="let item of outputStreamData as any">
         {{item.title}}
       </div>
     </div>
     <div class="output-stream">
       <h6>Cartoons</h6>
-      <div class="input-stream__item" *ngFor="let item of outputStreamData">
+      <div class="input-stream__item" *ngFor="let item of outputStreamData as any">
         {{item.title}}
       </div>
     </div>
