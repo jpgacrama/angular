@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { interval, Subscription } from 'rxjs';
 export class AppComponent {
   subscription: Subscription | null;
   inputStreamData = ['john wick', 'inception', 'interstellar'];
-  outputStreamData: number[] = [];
+  outputStreamData: string[] = [];
 
   ngOnInit() {
     this.subscription = new Subscription();
@@ -17,9 +18,14 @@ export class AppComponent {
 
   startStream() {
     const streamSource = interval(1500);
-    this.subscription = streamSource.subscribe((input) => {
-      this.outputStreamData.push(input);
-    });
+    this.subscription = streamSource
+      .pipe(
+        map((output) => output % this.inputStreamData.length),
+        map((index) => this.inputStreamData[index])
+      )
+      .subscribe((element) => {
+        this.outputStreamData.push(element);
+      });
   }
 
   stopStream() {
