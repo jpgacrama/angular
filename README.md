@@ -9,6 +9,7 @@
   - [Update all tsconfig.json to contain the following](#update-all-tsconfigjson-to-contain-the-following)
   - [Install correct typescript version](#install-correct-typescript-version)
   - [NPM](#npm)
+  - [Terminate used port](#terminate-used-port)
 
 
 # Pre-Requisites:
@@ -44,3 +45,6 @@
 ## NPM
 - `npm install`
 - `ng serve -o`
+
+## Terminate used port
+- `lsof -ti :4200 | xargs kill`
