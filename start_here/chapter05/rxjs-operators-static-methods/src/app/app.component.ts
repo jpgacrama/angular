@@ -37,7 +37,6 @@ export class AppComponent {
       title: 'interstellar',
     },
   ];
-  outputStreamData = [];
   ngOnInit() {}
 
   startStream() {
@@ -64,8 +63,8 @@ export class AppComponent {
           )
         )
       )
-      .subscribe((input) => {
-        this.outputStreamData.push(input);
+      .subscribe((output) => {
+        console.log(output);
       });
   }
   stopStream() {
