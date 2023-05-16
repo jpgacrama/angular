@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { COLORS } from '../constants';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -12,20 +14,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   colorOptions = COLORS;
   borderRadiusOptions = [4, 6, 8, 10, 12, 14, 16, 18, 20];
 
-  boxStyles: {
-    width: string;
-    height: string;
-    backgroundColor: string;
-    color: string;
-    borderRadius: string;
-  };
-
   boxForm = new FormGroup({
     size: new FormControl(''),
     borderRadius: new FormControl(''),
     textColor: new FormControl(''),
     backgroundColor: new FormControl(''),
   });
+  boxStyles$: Observable<{
+    width: string;
+    height: string;
+    backgroundColor: string;
+    color: string;
+    borderRadius: string;
+  }>;
 
   constructor() {}
 
@@ -36,25 +37,25 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.boxForm
       .get('borderRadius')
       .setValue(String(this.borderRadiusOptions[0]));
-    this.applyChanges();
+    this.listenToInputChanges();
   }
 
-  setBoxStyles(size, backgroundColor, color, borderRadius) {
-    this.boxStyles = {
-      width: `${size}px`,
-      height: `${size}px`,
-      backgroundColor,
-      color,
-      borderRadius: `${borderRadius}px`,
-    };
-  }
-
-  applyChanges() {
-    this.setBoxStyles(
-      this.boxForm.get('size').value,
-      this.boxForm.get('backgroundColor').value,
-      this.boxForm.get('textColor').value,
-      this.boxForm.get('borderRadius').value
+  listenToInputChanges() {
+    this.boxStyles$ = combineLatest([
+      this.boxForm.get('size').valueChanges,
+      this.boxForm.get('borderRadius').valueChanges,
+      this.boxForm.get('backgroundColor').valueChanges,
+      this.boxForm.get('textColor').valueChanges,
+    ]).pipe(
+      map(([size, borderRadius, backgroundColor, textColor]) => {
+        return {
+          width: `${size}px`,
+          height: `${size}px`,
+          backgroundColor,
+          color: textColor,
+          borderRadius: `${borderRadius}px`,
+        };
+      })
     );
   }
 
