@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { COLORS } from '../constants';
 import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -42,10 +42,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   listenToInputChanges() {
     this.boxStyles$ = combineLatest([
-      this.boxForm.get('size').valueChanges,
-      this.boxForm.get('borderRadius').valueChanges,
-      this.boxForm.get('backgroundColor').valueChanges,
-      this.boxForm.get('textColor').valueChanges,
+      this.boxForm
+        .get('size')
+        .valueChanges.pipe(startWith(this.sizeOptions[0])),
+      this.boxForm
+        .get('borderRadius')
+        .valueChanges.pipe(startWith(this.borderRadiusOptions[0])),
+      this.boxForm
+        .get('backgroundColor')
+        .valueChanges.pipe(startWith(this.colorOptions[1])),
+      this.boxForm
+        .get('textColor')
+        .valueChanges.pipe(startWith(this.colorOptions[0])),
     ]).pipe(
       map(([size, borderRadius, backgroundColor, textColor]) => {
         return {
