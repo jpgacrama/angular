@@ -1,13 +1,11 @@
 <div class="user-detail">
-  <app-user-card class="user-card" [user]="user$ | async"></app-user-card>
+  <app-user-card *ngIf="user; else loader" [user]="user"></app-user-card>
   <div class="secondary-container">
     <h4>Similar Users</h4>
     <div class="similar-users">
-      <ng-container *ngIf="similarUsers$ | async as users; else loader">
-        <div class="user-card" *ngFor="let user of users">
-          <app-user-card [user]="user"></app-user-card>
-        </div>
-      </ng-container>
+      <ng-container *ngIf="similarUsers; else loader">
+        <app-user-card class="user-card" *ngFor="let user of similarUsers" [user]="user"></app-user-card>
+        </ng-container>
 
     </div>
   </div>
