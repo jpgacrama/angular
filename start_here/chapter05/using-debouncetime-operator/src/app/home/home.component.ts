@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../core/services/user.service';
 import { IUser } from '../core/interfaces/user.interface';
 import { FormControl, FormGroup } from '@angular/forms';
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -12,34 +12,33 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   users: IUser[];
-  searchForm: FormGroup
+  searchForm: FormGroup;
   componentAlive: boolean;
-  constructor(
-    private userService: UserService
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.componentAlive = true;
     this.searchForm = new FormGroup({
-      username: new FormControl('', [])
-    })
+      username: new FormControl('', []),
+    });
     this.searchUsers();
-    this.searchForm.get('username').valueChanges
-      .pipe(
-        takeWhile(() => !!this.componentAlive)
+    this.searchForm
+      .get('username')
+      .valueChanges.pipe(
+        takeWhile(() => !!this.componentAlive),
+        debounceTime(300)
       )
       .subscribe(() => {
         this.searchUsers();
-      })
+      });
   }
 
   searchUsers() {
     const query = this.searchForm.get('username').value;
-    console.log(query)
-    this.userService.searchUsers(query)
-      .subscribe(users => {
-        this.users = users;
-      });
+    console.log(query);
+    this.userService.searchUsers(query).subscribe((users) => {
+      this.users = users;
+    });
   }
 
   ngOnDestroy() {}
