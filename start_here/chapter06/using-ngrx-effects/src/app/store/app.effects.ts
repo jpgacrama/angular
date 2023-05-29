@@ -7,5 +7,17 @@ import { APP_ACTIONS, getUsersFailure, getUsersSuccess } from './app.actions';
 
 @Injectable()
 export class AppEffects {
+  getUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(APP_ACTIONS.GET_USERS),
+      mergeMap(() =>
+        this.userService.getUsers().pipe(
+          map((users) => getUsersSuccess({ users })),
+          catchError((error) => of(getUsersFailure({ error })))
+        )
+      )
+    )
+  );
+
   constructor(private actions$: Actions, private userService: UserService) {}
 }
