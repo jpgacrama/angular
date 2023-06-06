@@ -1,20 +1,23 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { IUser } from '../core/interfaces/user.interface';
 import { getUsersSuccess } from './app.actions';
+import { RouterReducerState } from '@ngrx/router-store';
 
 export interface AppState {
   users: IUser[];
+  router: RouterReducerState<any>;
 }
 
 const initialState: AppState = {
-  users: null
-}
+  users: null,
+  router: null,
+};
 
 const appReducer = createReducer(
   initialState,
   on(getUsersSuccess, (state, action) => ({
     ...state,
-    users: action.users
+    users: action.users,
   }))
 );
 
